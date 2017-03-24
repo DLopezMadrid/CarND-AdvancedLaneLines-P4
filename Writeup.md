@@ -19,9 +19,19 @@ The goals / steps of this project are the following:
 [diag]: ./assets/diag.png "diagnostics image"
 [diag_key]: ./assets/diag_key.png "diagnostics image key"
 [image6]: ./examples/example_output.jpg "Output"
-[video1]: ./project_video.mp4 "Video"
 
-### Additional information
+**Click on the images to go to the youtube videos**
+
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/rWMSQBUa7xs/0.jpg)](https://www.youtube.com/watch?v=rWMSQBUa7xs "Project video with diagnostics")
+
+
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/sYCWNlfFtqQ/0.jpg)](https://youtu.be/sYCWNlfFtqQ "Project video with diagnostics")
+
+
+
+
+
+### General information
 The code for the project is stored in the `P4-Advanced-Lane-Lines.ipynb` file.
 ### Camera Calibration
 
@@ -72,7 +82,7 @@ Once we have the masks for the lines, we compare it to the binary image obtained
 ![alt text][diag]
 
 
-![diag_key]  
+![diag_key]
 
 
 
@@ -80,13 +90,8 @@ Once we have the masks for the lines, we compare it to the binary image obtained
 
 #### 4. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I did this in lines # through # in my code in `my_other_file.py`
+The curvature radius and lane center offset are also calculated in the `process_video` function. This is done based on the standard size of a US highway lane. Using that we can calculate the number of pixels per m that correspond to the image. With that information we can extract the curvature using the `get_curvature` function and the polynomial for the lane lines.  To calculate the offset position, we extract the bottom position of the lanes and find the middle point and then compare it to its position on the image.
 
-#### 5. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
-
-I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
-
-![alt text][image6]
 
 ---
 
@@ -94,7 +99,13 @@ I implemented this step in lines # through # in my code in `yet_another_file.py`
 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
-Here's a [link to my video result](./project_video.mp4)
+Here's a [link to my video result](./output/project_video_output.mp4)
+
+and here you can find the same result video with[diagnostics enabled](./output/project_video_output_diag.mp4)
+
+The challenge video result is [here](./output/challenge_video_output.mp4)
+
+The project videos are also available in youtube [here](https://www.youtube.com/watch?v=rWMSQBUa7xs&feature=youtu.be) and [here](https://www.youtube.com/watch?v=sYCWNlfFtqQ)
 
 ---
 
@@ -102,4 +113,8 @@ Here's a [link to my video result](./project_video.mp4)
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.
+This implementation works fairly well on simple scenarios (like highways) but it starts having trouble in situations where the curvature changes quickly. It also has problems when only one of the lane lines is detected.
+
+One of the most obvious points that can be improved on is to make both lines parallel if that line is not found. We could also re calculate the lanes with the histogram method if they are completely lost (sudden change outside the mask window). Other points to improve are the use of more suitable representations for the lines, like clothoid curves.
+
+One of the big problems that I found is how sensitive the parameters for the color and sobel masks are. A way to improve robustness would be to be constantly updating those using some kind of Kalman filter.
