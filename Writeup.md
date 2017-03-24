@@ -101,7 +101,7 @@ The curvature radius and lane center offset are also calculated in the `process_
 
 Here's a [link to my video result](./output/project_video_output.mp4)
 
-and here you can find the same result video with[diagnostics enabled](./output/project_video_output_diag.mp4)
+and here you can find the same result video with [diagnostics enabled](./output/project_video_output_diag.mp4)
 
 The challenge video result is [here](./output/challenge_video_output.mp4)
 
