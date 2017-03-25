@@ -96,7 +96,9 @@ The code for calculating the curvature radius is as follows (for the right line 
 
 `ym_per_pix = 30/720 # meters per pixel in y dimension`
 `xm_per_pix = 3.7/700 # meters per pixel in x dimension`
-`right_fit_cr = np.polyfit(all_y_R*ym_per_pix, all_x_R*xm_per_pix, 2)`
+`right_y = np.arange(11)*img_size[0]/10`
+`right_fitx = right_fit[0]*right_y**2 + right_fit[1]*right_y + right_fit[2]`
+`right_fit_cr = np.polyfit(right_y*ym_per_pix, right_fitx*xm_per_pix, 2)`
 `R_curve = (1+(2*right_fit_cr[0]*720*ym_per_pix+right_fit_cr[1])**2)**1.5 / np.absolute(2*right_fit_cr[0])`
 
 
