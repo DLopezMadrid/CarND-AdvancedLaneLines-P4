@@ -22,10 +22,10 @@ The goals / steps of this project are the following:
 
 **Click on the images to go to the youtube videos**
 
-[![IMAGE ALT TEXT](http://img.youtube.com/vi/rWMSQBUa7xs/0.jpg)](https://www.youtube.com/watch?v=rWMSQBUa7xs "Project video with diagnostics")
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/xpx6G9t4X1o/0.jpg)](https://youtu.be/xpx6G9t4X1o "Project video with diagnostics")
 
 
-[![IMAGE ALT TEXT](http://img.youtube.com/vi/sYCWNlfFtqQ/0.jpg)](https://youtu.be/sYCWNlfFtqQ "Project video with diagnostics")
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/XuLtg02es1k/0.jpg)](https://youtu.be/XuLtg02es1k "Project video with diagnostics")
 
 
 
@@ -92,6 +92,14 @@ Once we have the masks for the lines, we compare it to the binary image obtained
 
 The curvature radius and lane center offset are also calculated in the `process_video` function. This is done based on the standard size of a US highway lane. Using that we can calculate the number of pixels per m that correspond to the image. With that information we can extract the curvature using the `get_curvature` function and the polynomial for the lane lines.  To calculate the offset position, we extract the bottom position of the lanes and find the middle point and then compare it to its position on the image.
 
+The code for calculating the curvature radius is as follows (for the right line in this case):
+
+`ym_per_pix = 30/720 # meters per pixel in y dimension`
+`xm_per_pix = 3.7/700 # meters per pixel in x dimension`
+`right_fit_cr = np.polyfit(all_y_R*ym_per_pix, all_x_R*xm_per_pix, 2)`
+`R_curve = (1+(2*right_fit_cr[0]*720*ym_per_pix+right_fit_cr[1])**2)**1.5 / np.absolute(2*right_fit_cr[0])`
+
+
 
 ---
 
@@ -105,7 +113,9 @@ and here you can find the same result video with [diagnostics enabled](./output/
 
 The challenge video result is [here](./output/challenge_video_output.mp4)
 
-The project videos are also available in youtube [here](https://www.youtube.com/watch?v=rWMSQBUa7xs&feature=youtu.be) and [here](https://www.youtube.com/watch?v=sYCWNlfFtqQ)
+The project videos are also available in youtube [here](https://youtu.be/xpx6G9t4X1o) and [here](https://youtu.be/XuLtg02es1k)
+
+
 
 ---
 
